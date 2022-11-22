@@ -2,23 +2,13 @@
 
 namespace Framework\Http;
 
-use http\Encoding\Stream;
-
 class Response
 {
-    private $phrases = [
-        // INFORMATIONAL CODES
+    private array $phrases = [
         100 => 'Continue',
-        // SUCCESS CODES
         200 => 'OK',
-        201 => 'Created',
-        202 => 'Accepted',
-        // CLIENT ERROR
         400 => 'Bad Request',
-        401 => 'Unauthorized',
-        403 => 'Forbidden',
         404 => 'Not Found',
-        // SERVER ERROR
         500 => 'Internal Server Error',
     ];
 
