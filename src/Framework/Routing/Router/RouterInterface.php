@@ -2,8 +2,10 @@
 
 namespace Framework\Routing\Router;
 
+use Framework\Http\Request;
+use Framework\Routing\Result;
+
 interface RouterInterface
 {
-    public function match(string $uri);
-
+    public function match(Request $request): Result;
 }

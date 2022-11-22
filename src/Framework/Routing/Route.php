@@ -27,6 +27,9 @@ class Route
         return $this->path;
     }
 
+    /**
+     * @return mixed
+     */
     public function getHandler()
     {
         return $this->handler;

@@ -29,5 +29,4 @@ class RouteCollection
         return $this->routes;
     }
 
-
 }
