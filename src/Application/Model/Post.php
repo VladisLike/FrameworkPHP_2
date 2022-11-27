@@ -2,7 +2,6 @@
 
 namespace Application\Model;
 
-
 use Framework\Common\Model;
 
 class Post extends Model

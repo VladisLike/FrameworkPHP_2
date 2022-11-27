@@ -1,43 +1,45 @@
 <?php
 
-use Framework\Http\JsonResponse;
-use Framework\Http\Request;
-use Framework\Http\Response;
+use Application\Controller\Car\ShowCarController;
+use Application\Controller\Common\AboutController;
+use Application\Controller\Common\HomeController;
+use Application\Controller\Post\ShowPostController;
+use Application\Controller\Product\ShowProductController;
+use Application\Controller\User\ShowUserController;
+use Framework\Http\Request\Request;
+use Framework\Http\Response\Response;
 use Framework\Routing\RouteCollection;
-use Framework\Routing\Router\Router;
+use Framework\Routing\Router\SimpleRouter;
 
 chdir(dirname(__DIR__));
+define("PATH", \getcwd());
+
 require 'vendor/autoload.php';
+
+//********** Init **********
+$request = new Request(array_merge($_SERVER, $_GET, $_POST));
 
 $routeCollection = new RouteCollection();
 
-$routeCollection->get('home', '/', function (Request $request) {
-    $name = $request->getParams()['name'] ?? 'Guest';
-    return new Response("<h1>Home Page ($name)<h1/>");
-});
+$routeCollection->get('home', '/', HomeController::class);
+$routeCollection->get('about', '/about', AboutController::class);
 
-$routeCollection->get('about', '/about', function () {
-    return new Response("<h1>About Page<h1/>");
-});
+$routeCollection->get('show_user', '/users', ShowUserController::class);
+$routeCollection->get('show_post', '/posts', ShowPostController::class);
+$routeCollection->get('show_product', '/products', ShowProductController::class);
+$routeCollection->get('show_car', '/cars', ShowCarController::class);
 
-$routeCollection->get('show_car', '/cars', function () {
-    return new JsonResponse([
-        ['id' => 1, 'model' => 'X3',],
-        ['id' => 2, 'model' => 'X5',],
-    ]);
-});
+//********** Run **********
 
-$router = new Router($routeCollection);
-
-$request = new Request(array_merge($_SERVER, $_GET, $_POST));
+$router = new SimpleRouter($routeCollection);
 
 $result = $router->match($request);
 $handler = $result->getHandler();
 if ($handler) {
-    $response = $handler($request);
+    $controller = is_string($handler) ? new $handler() : $handler;
+    $response = $controller($request);
 } else {
     $response = new Response('Not found Page!!!');
 }
 
 print $response->getBody();
-

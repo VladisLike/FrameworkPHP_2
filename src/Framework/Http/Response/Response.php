@@ -1,8 +1,8 @@
 <?php
 
-namespace Framework\Http;
+namespace Framework\Http\Response;
 
-class Response
+class Response implements ResponseInterface
 {
     private array $phrases = [
         100 => 'Continue',

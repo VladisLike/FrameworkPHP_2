@@ -2,7 +2,10 @@
 
 namespace Framework\Routing;
 
-class Route
+use Framework\Http\Request\RequestInterface;
+use Framework\Routing\Router\Result;
+
+class Route implements RouteInterface
 {
     private string $name;
     private string $path;
@@ -17,27 +20,17 @@ class Route
         $this->methods = $methods;
     }
 
-    public function getName(): string
+    public function match(RequestInterface $request): ?Result
     {
-        return $this->name;
-    }
+        if (empty($this->methods)) {
+            return null;
+        }
 
-    public function getPath(): string
-    {
-        return $this->path;
-    }
+        if ($request->getUriPath() === $this->path) {
+            return new Result($this->name, $this->handler);
+        }
 
-    /**
-     * @return mixed
-     */
-    public function getHandler()
-    {
-        return $this->handler;
-    }
-
-    public function getMethods(): array
-    {
-        return $this->methods;
+        return null;
     }
 
 }

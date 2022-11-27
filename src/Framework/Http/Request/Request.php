@@ -1,8 +1,8 @@
 <?php
 
-namespace Framework\Http;
+namespace Framework\Http\Request;
 
-class Request
+class Request implements RequestInterface
 {
     private array $params;
 
