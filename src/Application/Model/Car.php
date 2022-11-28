@@ -7,16 +7,24 @@ use Framework\Common\Model;
 class Car extends Model
 {
     private string $make;
-
     private string $model;
-
     private string $generation;
-
     private bool $active;
 
+    /**
+     * @var User[]
+     */
     private array $users;
 
-    public function __construct(int $id, string $make, string $model, string $generation, bool $active, array $users)
+    /**
+     * @param string $make
+     * @param string $model
+     * @param string $generation
+     * @param bool $active
+     * @param User[] $users
+     * @param int $id
+     */
+    public function __construct(string $make, string $model, string $generation, bool $active, array $users, int $id)
     {
         parent::__construct($id);
 
@@ -92,7 +100,7 @@ class Car extends Model
     }
 
     /**
-     * @return array
+     * @return User[]
      */
     public function getUsers(): array
     {
@@ -100,7 +108,7 @@ class Car extends Model
     }
 
     /**
-     * @param array $users
+     * @param User[] $users
      */
     public function setUsers(array $users): void
     {

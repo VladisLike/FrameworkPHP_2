@@ -8,20 +8,11 @@ use Framework\Common\Model;
 class Product extends Model
 {
     private string $name;
-
     private int $cost;
-
     private int $discount;
-
     private bool $inStock;
 
-    public function __construct(
-        int $id,
-        string $name,
-        int    $cost,
-        int    $discount,
-        bool   $inStock
-    )
+    public function __construct(string $name, int $cost, int $discount, bool $inStock, int $id)
     {
         parent::__construct($id);
 

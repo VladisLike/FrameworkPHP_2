@@ -14,17 +14,17 @@ class RouteCollection
         $this->routes[] = $route;
     }
 
-    public function any(string $name, string $path, $handler): void
+    public function any(string $name, string $path, $handler, array $tokens = []): void
     {
         $this->addRoute(new Route($name, $path, $handler, []));
     }
 
-    public function get(string $name, string $path, $handler): void
+    public function get(string $name, string $path, $handler, array $tokens = []): void
     {
         $this->addRoute(new Route($name, $path, $handler, ['GET']));
     }
 
-    public function post(string $name, string $path, $handler): void
+    public function post(string $name, string $path, $handler, array $tokens = []): void
     {
         $this->addRoute(new Route($name, $path, $handler, ['POST']));
     }

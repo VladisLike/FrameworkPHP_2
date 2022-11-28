@@ -10,9 +10,18 @@ class Post extends Model
 
     private string $description;
 
+    /**
+     * @var Car[]
+     */
     private array $cars;
 
-    public function __construct(int $id, string $title, string $description, array $cars)
+    /**
+     * @param string $title
+     * @param string $description
+     * @param Car[] $cars
+     * @param int $id
+     */
+    public function __construct(string $title, string $description, array $cars, int $id)
     {
         parent::__construct($id);
 
@@ -21,40 +30,28 @@ class Post extends Model
         $this->cars = $cars;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
     /**
-     * @return array
+     * @return Car[]
      */
     public function getCars(): array
     {
@@ -62,7 +59,7 @@ class Post extends Model
     }
 
     /**
-     * @param array $cars
+     * @param Car[] $cars
      */
     public function setCars(array $cars): void
     {

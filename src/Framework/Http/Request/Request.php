@@ -5,10 +5,32 @@ namespace Framework\Http\Request;
 class Request implements RequestInterface
 {
     private array $params;
+    private array $attributes = [];
 
     public function __construct(array $params)
     {
         $this->params = $params;
+    }
+
+    public function withAttribute($attribute, $value): self
+    {
+        $new = clone $this;
+        $new->attributes[$attribute] = $value;
+        return $new;
+    }
+
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    public function getAttribute($attribute, $default = null)
+    {
+        if (!array_key_exists($attribute, $this->attributes)) {
+            return $default;
+        }
+
+        return $this->attributes[$attribute];
     }
 
     public function getParams(): array

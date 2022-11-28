@@ -3,19 +3,22 @@
 namespace Application\Controller\Post;
 
 use Application\Model\Post;
+use Application\Repository\PostRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
-use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
-use Framework\Repository\ObjectManager;
 
-class ShowPostController extends AbstractController
+class AllPostController extends AbstractController
 {
 
     public function __invoke(RequestInterface $request): ResponseInterface
     {
-        $object = new ObjectManager(Post::class);
+        $repository = new PostRepository();
+        /** @var Post[] $cars */
+        $posts = $repository->findAll();
+        dump($posts);
+        exit();
 
-        return new JsonResponse($object->getData());
+        return new Response($posts);
     }
 }

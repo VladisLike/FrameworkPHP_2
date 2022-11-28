@@ -15,16 +15,20 @@ class User extends Model
 
     private bool $active;
 
+    /**
+     * @var Product[]
+     */
     private array $products;
 
-    public function __construct(
-        int $id,
-        string $firstName,
-        string $lastName,
-        string $email,
-        bool $active,
-        array $products
-    )
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param bool $active
+     * @param Product[] $products
+     * @param int $id
+     */
+    public function __construct(string $firstName, string $lastName, string $email, bool $active, array $products, int $id)
     {
         parent::__construct($id);
 
@@ -34,6 +38,7 @@ class User extends Model
         $this->active = $active;
         $this->products = $products;
     }
+
 
     public function getFirstName(): string
     {
@@ -75,13 +80,21 @@ class User extends Model
         $this->active = $active;
     }
 
+    /**
+     * @return Product[]
+     */
     public function getProducts(): array
     {
         return $this->products;
     }
 
+    /**
+     * @param Product[] $products
+     */
     public function setProducts(array $products): void
     {
         $this->products = $products;
     }
+
+
 }
