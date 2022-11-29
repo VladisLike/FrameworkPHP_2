@@ -6,6 +6,7 @@ use Application\Model\Post;
 use Application\Repository\PostRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
+use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 
 class AllPostController extends AbstractController
@@ -16,9 +17,7 @@ class AllPostController extends AbstractController
         $repository = new PostRepository();
         /** @var Post[] $cars */
         $posts = $repository->findAll();
-        dump($posts);
-        exit();
 
-        return new Response($posts);
+        return new JsonResponse($posts);
     }
 }

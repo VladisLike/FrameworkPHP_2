@@ -6,7 +6,7 @@ use Application\Model\Car;
 use Application\Repository\CarRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
-use Framework\Http\Response\Response;
+use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 
 class AllCarController extends AbstractController
@@ -17,9 +17,7 @@ class AllCarController extends AbstractController
         $repository = new CarRepository();
         /** @var Car[] $cars */
         $cars = $repository->findAll();
-        dump($cars);
-        exit();
 
-        return new Response($cars);
+        return new JsonResponse($cars);
     }
 }

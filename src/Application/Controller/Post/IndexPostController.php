@@ -6,7 +6,7 @@ use Application\Model\Post;
 use Application\Repository\PostRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
-use Framework\Http\Response\Response;
+use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 
 class IndexPostController extends AbstractController
@@ -17,9 +17,7 @@ class IndexPostController extends AbstractController
         $repository = new PostRepository();
         /** @var Post $car */
         $post = $repository->find($id);
-        dump($post);
-        exit();
 
-        return new Response($post);
+        return new JsonResponse($post);
     }
 }

@@ -21,7 +21,7 @@ class ObjectManager
 
     private function getDataByClass(ReflectionClass $reflection): array
     {
-        return require PATH . '/data/' .
+        return require 'data/' .
             \strtolower($reflection->getShortName()) . 's.php';
     }
 

@@ -61,4 +61,9 @@ class Product extends Model
     {
         $this->inStock = $inStock;
     }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }

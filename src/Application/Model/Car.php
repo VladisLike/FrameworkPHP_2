@@ -114,4 +114,9 @@ class Car extends Model
     {
         $this->users = $users;
     }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }

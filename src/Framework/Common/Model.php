@@ -2,7 +2,7 @@
 
 namespace Framework\Common;
 
-abstract class Model
+abstract class Model implements \JsonSerializable
 {
     protected int $id;
 
@@ -22,6 +22,11 @@ abstract class Model
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 
 }

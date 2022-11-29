@@ -6,6 +6,7 @@ use Application\Model\User;
 use Application\Repository\UserRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
+use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 
 class AllUserController extends AbstractController
@@ -16,9 +17,7 @@ class AllUserController extends AbstractController
         $repository = new UserRepository();
         /** @var User[] $cars */
         $users = $repository->findAll();
-        dump($users);
-        exit();
 
-        return new Response($users);
+        return new JsonResponse($users);
     }
 }

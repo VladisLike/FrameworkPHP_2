@@ -6,7 +6,7 @@ use Application\Model\User;
 use Application\Repository\UserRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
-use Framework\Http\Response\Response;
+use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 
 class IndexUserController extends AbstractController
@@ -17,9 +17,7 @@ class IndexUserController extends AbstractController
         $repository = new UserRepository();
         /** @var User $car */
         $user = $repository->find($id);
-        dump($user);
-        exit();
 
-        return new Response($user);
+        return new JsonResponse($user);
     }
 }

@@ -66,5 +66,10 @@ class Post extends Model
         $this->cars = $cars;
     }
 
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+
 
 }

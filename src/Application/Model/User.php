@@ -96,5 +96,10 @@ class User extends Model
         $this->products = $products;
     }
 
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+
 
 }

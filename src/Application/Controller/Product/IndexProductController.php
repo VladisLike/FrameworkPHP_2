@@ -6,7 +6,7 @@ use Application\Model\Product;
 use Application\Repository\ProductRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
-use Framework\Http\Response\Response;
+use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 
 class IndexProductController extends AbstractController
@@ -17,9 +17,7 @@ class IndexProductController extends AbstractController
         $repository = new ProductRepository();
         /** @var Product $car */
         $product = $repository->find($id);
-        dump($product);
-        exit();
 
-        return new Response($product);
+        return new JsonResponse($product);
     }
 }
