@@ -11,18 +11,46 @@ class ObjectManager
     private ReflectionClass $targetClass;
     private AbstractRepository $repository;
 
-    public function __construct(AbstractRepository $repository)
+    private string $fileType;
+
+    public function __construct(AbstractRepository $repository, string $fileType)
     {
         $reflection = new \ReflectionClass($repository->getModel());
-        $this->data = $this->getDataByClass($reflection);
-        $this->targetClass = $reflection;
         $this->repository = $repository;
+        $this->fileType = $fileType;
+        $this->targetClass = $reflection;
+
+        $this->data = $this->getDataFrom($reflection, $fileType);
     }
 
-    private function getDataByClass(ReflectionClass $reflection): array
+    private function getDataFrom(ReflectionClass $reflection, string $fileType): array
     {
-        return require 'data/' .
-            \strtolower($reflection->getShortName()) . 's.php';
+        $type = $fileType === 'default' ? 'php' : $fileType;
+        if (strtolower($type) === 'php') {
+            return require PATH . '/data/files/php/' .
+                \strtolower($reflection->getShortName()) . "s.$type";
+        } elseif (strtolower($type) === 'sql') {
+            return $this->getFromSQL();
+        } else {
+            print 'No found method to get data';
+            exit();
+        }
+    }
+
+    private function getFromSQL(): array
+    {
+        $link = \mysqli_connect("localhost", "root", "secret", 'framework_db');
+        if ($link) {
+            $explodedName = explode('\\', $this->repository->getModel());
+            $modelName = $explodedName[count($explodedName) - 1] . 's';
+            $sql = "SELECT * FROM " . strtolower($modelName);
+            $result = mysqli_query($link, $sql);
+
+            return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        } else {
+            var_dump("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
+            exit;
+        }
     }
 
     public function getObject(array $item): ?Model
@@ -58,7 +86,7 @@ class ObjectManager
         $oldReflection = $this->targetClass;
         $oldDate = $this->data;
         $this->targetClass = $reflection;
-        $this->data = $this->getDataByClass($reflection);
+        $this->data = $this->getDataFrom($reflection, $this->fileType);
 
         foreach ($objectIds as $objectId) {
             $classes[] = $this->repository->find($objectId);
@@ -79,5 +107,6 @@ class ObjectManager
     {
         return $this->data;
     }
+
 
 }

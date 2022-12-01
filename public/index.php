@@ -17,6 +17,8 @@ use Framework\Routing\RouteCollection;
 use Framework\Routing\Router\SimpleRouter;
 
 chdir(dirname(__DIR__));
+define("PATH", \getcwd());
+
 require 'vendor/autoload.php';
 
 //********** Init **********
@@ -24,27 +26,25 @@ $request = new Request(array_merge($_SERVER, $_GET));
 
 $routeCollection = new RouteCollection();
 
-//common path
+//Common path
 $routeCollection->get('home', '/', HomeController::class);
 $routeCollection->get('about', '/about', AboutController::class);
 
-//user path
+//User path
 $routeCollection->get('show_user', '/users', AllUserController::class);
 $routeCollection->get('user', '/users/{id}', IndexUserController::class, ['id' => '\d+']);
 
-//post path
+//Post path
 $routeCollection->get('show_post', '/posts', AllPostController::class);
 $routeCollection->get('post', '/posts/{id}', IndexPostController::class, ['id' => '\d+']);
 
-//product path
+//Product path
 $routeCollection->get('show_product', '/products', AllProductController::class);
 $routeCollection->get('product', '/products/{id}', IndexProductController::class, ['id' => '\d+']);
 
-//car path
+//Car path
 $routeCollection->get('show_car', '/cars', AllCarController::class);
 $routeCollection->get('car', '/cars/{id}', IndexCarController::class, ['id' => '\d+']);
-
-//********** Run **********
 
 $router = new SimpleRouter($routeCollection);
 
@@ -60,7 +60,4 @@ try {
     $response = new Response('Not found Page!!!', 404);
 }
 
-
 print $response->getBody();
-
-

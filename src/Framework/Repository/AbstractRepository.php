@@ -9,9 +9,9 @@ abstract class AbstractRepository implements RepositoryInterface
 
     private ObjectManager $objectManager;
 
-    public function __construct()
+    public function __construct(string $fileType = 'default')
     {
-        $this->objectManager = new ObjectManager($this);
+        $this->objectManager = new ObjectManager($this, $fileType);
     }
 
 

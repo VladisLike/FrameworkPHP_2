@@ -6,7 +6,8 @@
     "php": ">=7.4",
     "symfony/var-dumper": "^5.4",
     "ext-http": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-mysqli": "*"
   },
   "autoload": {
     "psr-4": {

@@ -14,7 +14,7 @@ class AllProductController extends AbstractController
 
     public function __invoke(RequestInterface $request): ResponseInterface
     {
-        $repository = new ProductRepository();
+        $repository = new ProductRepository('sql');
         /** @var Product[] $cars */
         $products = $repository->findAll();
 

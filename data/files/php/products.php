@@ -6,7 +6,7 @@ return [
         'name' => 'Iphone 12 mini',
         'cost' => 800,
         'discount' => 20,
-        'in_stock' => true, //inStock -> in_stock
+        'in_stock' => true,
     ],
     [
         'id' => 2,
