@@ -2,6 +2,8 @@
 
 namespace Framework\Repository\DataResource;
 
+use Framework\Repository\DataResource\DB\DBMySQL;
+
 class DataMySQL implements DataInterface
 {
     private string $host;
@@ -19,17 +21,10 @@ class DataMySQL implements DataInterface
 
     public function getDataFromResource(string $modelName): array
     {
-        $link = \mysqli_connect($this->host, $this->username, $this->password, $this->dbName);
-        if ($link) {
-            $explodedName = explode('\\', $modelName);
-            $model = $explodedName[count($explodedName) - 1] . 's';
-            $sql = "SELECT * FROM " . strtolower($model);
-            $result = $link->query($sql);
-
-            return mysqli_fetch_all($result, MYSQLI_ASSOC);
-        } else {
-            var_dump("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
-            exit;
-        }
+        $db = new DBMySQL($this->host, $this->username, $this->password, $this->dbName);
+        $explodedName = explode('\\', $modelName);
+        $model = $explodedName[count($explodedName) - 1] . 's';
+        $sql = "SELECT * FROM " . strtolower($model);
+        return $db->query($sql);
     }
 }

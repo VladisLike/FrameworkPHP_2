@@ -17,7 +17,7 @@ use Framework\Routing\RouteCollection;
 use Framework\Routing\Router\SimpleRouter;
 
 chdir(dirname(__DIR__));
-define("PATH", \getcwd());
+define("PATH", getcwd());
 
 require 'vendor/autoload.php';
 

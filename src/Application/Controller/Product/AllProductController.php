@@ -16,8 +16,8 @@ class AllProductController extends AbstractController
 
     public function __invoke(RequestInterface $request): ResponseInterface
     {
-//        $data = new DataMySQL('localhost', 'root', 'secret', 'framework_db');
-        $repository = new ProductRepository(new DataFilePHP());
+        $data = new DataMySQL('localhost', 'root', 'secret', 'framework_db');
+        $repository = new ProductRepository($data/*new DataFilePHP()*/);
         /** @var Product[] $cars */
         $products = $repository->findAll();
 

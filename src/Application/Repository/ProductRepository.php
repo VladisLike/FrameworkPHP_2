@@ -8,7 +8,7 @@ use Framework\Repository\AbstractRepository;
 class ProductRepository extends AbstractRepository
 {
 
-    function getModel(): string
+    public function getModel(): string
     {
         return Product::class;
     }
