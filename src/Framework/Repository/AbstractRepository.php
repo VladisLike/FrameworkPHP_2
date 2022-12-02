@@ -15,11 +15,10 @@ abstract class AbstractRepository implements RepositoryInterface
         $this->objectManager = new ObjectManager($this, $data);
     }
 
-
     public function find(int $id): ?Model
     {
         foreach ($this->objectManager->getDataArray() as $item) {
-            if ($item['id'] === $id) {
+            if ((int)$item['id'] === $id) {
                 return $this->objectManager->getObject($item);
             }
         }

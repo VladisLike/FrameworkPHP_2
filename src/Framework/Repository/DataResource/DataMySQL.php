@@ -24,7 +24,7 @@ class DataMySQL implements DataInterface
             $explodedName = explode('\\', $modelName);
             $model = $explodedName[count($explodedName) - 1] . 's';
             $sql = "SELECT * FROM " . strtolower($model);
-            $result = mysqli_query($link, $sql);
+            $result = $link->query($sql);
 
             return mysqli_fetch_all($result, MYSQLI_ASSOC);
         } else {
