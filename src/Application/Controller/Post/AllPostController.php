@@ -8,13 +8,14 @@ use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
+use Framework\Repository\DataResource\DataFilePHP;
 
 class AllPostController extends AbstractController
 {
 
     public function __invoke(RequestInterface $request): ResponseInterface
     {
-        $repository = new PostRepository();
+        $repository = new PostRepository(new DataFilePHP());
         /** @var Post[] $cars */
         $posts = $repository->findAll();
 

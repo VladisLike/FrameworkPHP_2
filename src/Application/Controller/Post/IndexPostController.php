@@ -8,13 +8,14 @@ use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
+use Framework\Repository\DataResource\DataFilePHP;
 
 class IndexPostController extends AbstractController
 {
     public function __invoke(RequestInterface $request): ResponseInterface
     {
         $id = $request->getAttribute('id');
-        $repository = new PostRepository();
+        $repository = new PostRepository(new DataFilePHP());
         /** @var Post $car */
         $post = $repository->find($id);
 

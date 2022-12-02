@@ -3,21 +3,22 @@
 namespace Framework\Repository;
 
 use Framework\Common\Model;
+use Framework\Repository\DataResource\DataInterface;
 
 abstract class AbstractRepository implements RepositoryInterface
 {
 
     private ObjectManager $objectManager;
 
-    public function __construct(string $fileType = 'default')
+    public function __construct(DataInterface $data)
     {
-        $this->objectManager = new ObjectManager($this, $fileType);
+        $this->objectManager = new ObjectManager($this, $data);
     }
 
 
     public function find(int $id): ?Model
     {
-        foreach ($this->objectManager->getData() as $item) {
+        foreach ($this->objectManager->getDataArray() as $item) {
             if ($item['id'] === $id) {
                 return $this->objectManager->getObject($item);
             }
@@ -30,7 +31,7 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         $models = [];
 
-        foreach ($this->objectManager->getData() as $item) {
+        foreach ($this->objectManager->getDataArray() as $item) {
             $models[] = $this->objectManager->getObject($item);
         }
 
@@ -41,7 +42,7 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         $models = [];
 
-        foreach ($this->objectManager->getData() as $item) {
+        foreach ($this->objectManager->getDataArray() as $item) {
             if ($this->determineItemCompareWith($item, $criteria)) {
                 $models[] = $this->objectManager->getObject($item);
             }

@@ -3,54 +3,23 @@
 namespace Framework\Repository;
 
 use Framework\Common\Model;
+use Framework\Helpers\SyntaxHelper;
+use Framework\Repository\DataResource\DataInterface;
 use ReflectionClass;
 
 class ObjectManager
 {
-    private array $data;
+    private DataInterface $data;
     private ReflectionClass $targetClass;
     private AbstractRepository $repository;
 
-    private string $fileType;
-
-    public function __construct(AbstractRepository $repository, string $fileType)
+    public function __construct(AbstractRepository $repository, DataInterface $data)
     {
         $reflection = new \ReflectionClass($repository->getModel());
+
         $this->repository = $repository;
-        $this->fileType = $fileType;
+        $this->data = $data;
         $this->targetClass = $reflection;
-
-        $this->data = $this->getDataFrom($reflection, $fileType);
-    }
-
-    private function getDataFrom(ReflectionClass $reflection, string $fileType): array
-    {
-        $type = $fileType === 'default' ? 'php' : $fileType;
-        if (strtolower($type) === 'php') {
-            return require PATH . '/data/files/php/' .
-                \strtolower($reflection->getShortName()) . "s.$type";
-        } elseif (strtolower($type) === 'sql') {
-            return $this->getFromSQL();
-        } else {
-            print 'No found method to get data';
-            exit();
-        }
-    }
-
-    private function getFromSQL(): array
-    {
-        $link = \mysqli_connect("localhost", "root", "secret", 'framework_db');
-        if ($link) {
-            $explodedName = explode('\\', $this->repository->getModel());
-            $modelName = $explodedName[count($explodedName) - 1] . 's';
-            $sql = "SELECT * FROM " . strtolower($modelName);
-            $result = mysqli_query($link, $sql);
-
-            return mysqli_fetch_all($result, MYSQLI_ASSOC);
-        } else {
-            var_dump("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
-            exit;
-        }
     }
 
     public function getObject(array $item): ?Model
@@ -58,7 +27,7 @@ class ObjectManager
         $classProperties = $this->targetClass->getProperties();
         $properties = \array_map(function (\ReflectionProperty $property) use ($item) {
             $this->propertyAnalyses(
-                $formattedProperty = $this->camelToSnake($property->getName()),
+                $formattedProperty = SyntaxHelper::camelToSnake($property->getName()),
                 $item
             );
             return $item[$formattedProperty];
@@ -80,30 +49,22 @@ class ObjectManager
             \count($explodedProperty) - 1
         )));
 
-        $reflection = new ReflectionClass("Application\\Model\\$className");
-
         $classes = [];
-        $oldReflection = $this->targetClass;
-        $oldDate = $this->data;
-        $this->targetClass = $reflection;
-        $this->data = $this->getDataFrom($reflection, $this->fileType);
-
+        $repoName = "Application\\Repository\\" . $className . 'Repository';
+        $currentRepository = (new ReflectionClass($repoName))->newInstance($this->data);
         foreach ($objectIds as $objectId) {
-            $classes[] = $this->repository->find($objectId);
+            $classes[] = $currentRepository->find($objectId);
         }
-
-        $this->targetClass = $oldReflection;
-        $this->data = $oldDate;
 
         $item[$property] = $classes;
     }
 
-    private function camelToSnake(string $input): string
+    public function getDataArray(): array
     {
-        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
+        return $this->data->getDataFromResource($this->repository->getModel());
     }
 
-    public function getData(): array
+    public function getData(): DataInterface
     {
         return $this->data;
     }
