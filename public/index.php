@@ -4,6 +4,7 @@ use Application\Controller\Car\AllCarController;
 use Application\Controller\Car\IndexCarController;
 use Application\Controller\Common\AboutController;
 use Application\Controller\Common\HomeController;
+use Application\Controller\Controller;
 use Application\Controller\Post\IndexPostController;
 use Application\Controller\Post\AllPostController;
 use Application\Controller\Product\IndexProductController;
@@ -12,6 +13,7 @@ use Application\Controller\User\IndexUserController;
 use Application\Controller\User\AllUserController;
 use Framework\Http\Request\Request;
 use Framework\Http\Response\Response;
+use Framework\Http\Response\Serializer\JsonSerializer;
 use Framework\Routing\Exception\NotMatchedException;
 use Framework\Routing\RouteCollection;
 use Framework\Routing\Router\SimpleRouter;
@@ -31,11 +33,11 @@ $routeCollection->get('home', '/', HomeController::class);
 $routeCollection->get('about', '/about', AboutController::class);
 
 //User path
-$routeCollection->get('show_user', '/users', AllUserController::class);
+$routeCollection->get('show_user', '/users', new AllUserController(new JsonSerializer('config/serializer.xml')));
 $routeCollection->get('user', '/users/{id}', IndexUserController::class, ['id' => '\d+']);
 
 //Post path
-$routeCollection->get('show_post', '/posts', AllPostController::class);
+$routeCollection->get('show_post', '/posts', new AllPostController(new JsonSerializer('config/serializer.xml')));
 $routeCollection->get('post', '/posts/{id}', IndexPostController::class, ['id' => '\d+']);
 
 //Product path

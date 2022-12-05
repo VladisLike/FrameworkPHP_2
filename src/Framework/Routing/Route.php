@@ -32,6 +32,7 @@ class Route implements RouteInterface
             return null;
         }
 
+
         $pattern = preg_replace_callback('~\{([^}]+)}~', function ($matches) {
             $argument = $matches[1];
             $replace = $this->tokens[$argument] ?? '[^}]+';

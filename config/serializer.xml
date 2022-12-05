@@ -1,0 +1,14 @@
+<entities>
+    <entity src="Application\Model\User">
+        <field group="user:read">firstName</field>
+        <field group="user:read">lastName</field>
+        <field group="user:read">email</field>
+        <field group="user:read">active</field>
+        <field>products</field>
+    </entity>
+    <entity src="Application\Model\Post">
+        <field group="user:read">title</field>
+        <field group="user:read">description</field>
+        <field group="user:read">cars</field>
+    </entity>
+</entities>

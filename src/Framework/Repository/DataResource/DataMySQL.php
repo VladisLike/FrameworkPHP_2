@@ -2,7 +2,7 @@
 
 namespace Framework\Repository\DataResource;
 
-use Framework\Repository\DataResource\DB\DBMySQL;
+use Framework\DB\DBMySQL;
 
 class DataMySQL implements DataInterface
 {

@@ -36,7 +36,7 @@ return [
     [
         'id' => 5,
         'first_name' => 'Karmen',
-        'last_name' => 'Ivanov',
+        'last_name' => 'Ivanovichel',
         'email' => 'karmen@mail.com',
         'active' => true,
         'products' => [1, 4, 2]
@@ -44,7 +44,7 @@ return [
     [
         'id' => 6,
         'first_name' => 'Karmenuk',
-        'last_name' => 'Ivanov',
+        'last_name' => 'Petrov',
         'email' => 'karmenuk@mail.com',
         'active' => true,
         'products' => [1, 4, 2]

@@ -4,11 +4,13 @@
   },
   "require": {
     "php": ">=7.4",
-    "symfony/var-dumper": "^5.4",
     "ext-http": "*",
     "ext-json": "*",
     "ext-mysqli": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-simplexml": "*",
+    "symfony/event-dispatcher": "^5.4",
+    "symfony/var-dumper": "^5.4"
   },
   "autoload": {
     "psr-4": {

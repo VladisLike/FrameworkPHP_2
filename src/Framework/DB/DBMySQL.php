@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Repository\DataResource\DB;
+namespace Framework\DB;
 
 use mysqli;
 

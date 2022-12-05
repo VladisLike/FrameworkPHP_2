@@ -1,17 +1,13 @@
 <?php
 
-namespace Application\Controller\User;
+namespace Application\Controller;
 
 use Application\Model\User;
 use Application\Repository\UserRepository;
-use Framework\Common\AbstractController;
-use Framework\Http\Request\RequestInterface;
-use Framework\Http\Response\JsonResponse;
-use Framework\Http\Response\ResponseInterface;
 use Framework\Http\Response\Serializer\JsonSerializer;
 use Framework\Repository\DataResource\DataFilePHP;
 
-class AllUserController extends AbstractController
+class Controller
 {
     private JsonSerializer $serializer;
 
@@ -20,14 +16,16 @@ class AllUserController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    public function __invoke(RequestInterface $request): ResponseInterface
+    public function showAll(): array
     {
         $repository = new UserRepository(new DataFilePHP());
         /** @var User[] $cars */
         $users = $repository->findAll();
 
-        return new JsonResponse($this->serializer->serialize($users, [
+        // [{'name': 'Pavel', 'email': 'pavel.laikov98@gmail.com'}]
+        return $this->serializer->serialize($users, [
             'groups' => ['user:read']
-        ]));
+        ]);
     }
+
 }
