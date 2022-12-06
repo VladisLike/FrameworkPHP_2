@@ -10,7 +10,6 @@ use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 use Framework\Repository\DataResource\DataApi;
 use Framework\Repository\DataResource\DataFilePHP;
-use Framework\Repository\DataResource\DataMySQL;
 
 class AllProductController extends AbstractController
 {

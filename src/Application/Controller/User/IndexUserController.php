@@ -7,6 +7,7 @@ use Application\Repository\UserRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
+use Framework\Http\Response\Response;
 use Framework\Http\Response\ResponseInterface;
 use Framework\Repository\DataResource\DataFilePHP;
 
@@ -19,6 +20,6 @@ class IndexUserController extends AbstractController
         /** @var User $car */
         $user = $repository->find($id);
 
-        return new JsonResponse($user);
+        return $user === null ? new Response('<h1>Not Found!</h1>') : new JsonResponse($user);
     }
 }

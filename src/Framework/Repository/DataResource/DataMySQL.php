@@ -23,7 +23,7 @@ class DataMySQL implements DataInterface
     {
         $db = new DBMySQL($this->host, $this->username, $this->password, $this->dbName);
         $explodedName = explode('\\', $modelName);
-        $model = $explodedName[count($explodedName) - 1] . 's';
+        $model = $explodedName[count($explodedName) - 1];
         $sql = "SELECT * FROM " . strtolower($model);
         return $db->query($sql);
     }

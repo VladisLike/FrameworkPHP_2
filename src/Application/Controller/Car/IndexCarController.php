@@ -7,6 +7,7 @@ use Application\Repository\CarRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
+use Framework\Http\Response\Response;
 use Framework\Http\Response\ResponseInterface;
 use Framework\Repository\DataResource\DataFilePHP;
 
@@ -20,6 +21,6 @@ class IndexCarController extends AbstractController
         /** @var Car $car */
         $car = $repository->find($id);
 
-        return new JsonResponse($car);
+        return $car === null ? new Response('<h1>Not Found!</h1>') : new JsonResponse($car);
     }
 }
