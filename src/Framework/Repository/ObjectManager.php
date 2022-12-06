@@ -38,25 +38,30 @@ class ObjectManager
 
     private function propertyAnalyses(string $property, array &$item)
     {
+
         if (!\is_array($item[$property])) {
             return;
         }
 
         $objectIds = $item[$property];
+
         $className = \ucfirst(\implode('', \array_slice(
             $explodedProperty = \str_split($property),
             0,
             \count($explodedProperty) - 1
         )));
 
+
         $classes = [];
         $repoName = "Application\\Repository\\" . $className . 'Repository';
         $currentRepository = (new ReflectionClass($repoName))->newInstance($this->data);
+
         foreach ($objectIds as $objectId) {
             $classes[] = $currentRepository->find($objectId);
         }
 
         $item[$property] = $classes;
+
     }
 
     public function getDataArray(): array

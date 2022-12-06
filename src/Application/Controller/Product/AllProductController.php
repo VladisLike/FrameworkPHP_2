@@ -8,6 +8,7 @@ use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
+use Framework\Repository\DataResource\DataApi;
 use Framework\Repository\DataResource\DataFilePHP;
 use Framework\Repository\DataResource\DataMySQL;
 
@@ -16,7 +17,7 @@ class AllProductController extends AbstractController
 
     public function __invoke(RequestInterface $request): ResponseInterface
     {
-        $data = new DataMySQL('localhost', 'root', 'secret', 'framework_db');
+        $data = new DataApi('https://127.0.0.1:8000/api/products.json');
         $repository = new ProductRepository($data/*new DataFilePHP()*/);
         /** @var Product[] $cars */
         $products = $repository->findAll();

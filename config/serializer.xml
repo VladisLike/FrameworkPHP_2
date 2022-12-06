@@ -9,6 +9,6 @@
     <entity src="Application\Model\Post">
         <field group="user:read">title</field>
         <field group="user:read">description</field>
-        <field group="user:read">cars</field>
+        <field>cars</field>
     </entity>
 </entities>

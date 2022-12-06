@@ -4,7 +4,6 @@ use Application\Controller\Car\AllCarController;
 use Application\Controller\Car\IndexCarController;
 use Application\Controller\Common\AboutController;
 use Application\Controller\Common\HomeController;
-use Application\Controller\Controller;
 use Application\Controller\Post\IndexPostController;
 use Application\Controller\Post\AllPostController;
 use Application\Controller\Product\IndexProductController;
