@@ -3,7 +3,6 @@
 namespace Framework\Repository;
 
 use Framework\Common\Model;
-use Framework\Repository\DataResource\DataApi;
 use Framework\Repository\DataResource\DataFilePHP;
 use Framework\Repository\DataResource\DataInterface;
 

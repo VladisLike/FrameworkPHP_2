@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\Common;
+namespace Application\Controller;
 
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;

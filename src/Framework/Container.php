@@ -11,13 +11,13 @@ class Container
         if ($this->has($id)) return $this->instances[$id];
 
         $reflection = new \ReflectionClass($id);
-        $idArguments = [];
 
         if ($reflection->getConstructor() === null) {
             $this->set($id);
             return $this->instances[$id];
         }
 
+        $idArguments = [];
         $parametersCount = \count($reflection->getConstructor()->getParameters());
         if ($parametersCount > 0) {
             foreach ($reflection->getConstructor()->getParameters() as $parameter) {
@@ -33,6 +33,7 @@ class Container
                             if ($reflectionParam->isInterface()) {
                                 if ($reflectionArg->implementsInterface($parameterClassName) === false) continue;
                             }
+
                             $idArguments[] = $this->get($classArg['value']);
                         }
                     } else {
@@ -49,8 +50,9 @@ class Container
             }
 
             $this->instances[$id] = $reflection->newInstanceArgs($idArguments);
-            return $this->instances[$id];
         }
+
+        return $this->instances[$id];
     }
 
     public function set(string $id)

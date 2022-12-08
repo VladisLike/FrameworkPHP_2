@@ -1,18 +1,27 @@
 <services>
-    <service class="Application\Controller\Car\AllCarController">
+    <service class="Application\Controller\CarController">
         <arguments>
             <argument name="serializer" type="class">Framework\Http\Response\Serializer\JsonSerializer</argument>
             <argument name="repository" type="class">Application\Repository\CarRepository</argument>
         </arguments>
     </service>
+
+    <service class="Application\Controller\ProductController">
+        <arguments>
+            <argument name="serializer" type="class">Framework\Http\Response\Serializer\JsonSerializer</argument>
+            <argument name="repository" type="class">Application\Repository\ProductRepository</argument>
+        </arguments>
+    </service>
+
     <service class="Framework\Http\Response\Serializer\JsonSerializer">
         <arguments>
             <argument name="config" type="string">config/serializer.xml</argument>
         </arguments>
     </service>
-    <service class="Framework\Repository\DataResource\DataApi">
-        <arguments>
-            <argument name="apiUrl" type="string">https://127.0.0.1:8000/api/products.json</argument>
-        </arguments>
-    </service>
+
+    <!--    <service class="Framework\Repository\DataResource\DataApi">-->
+    <!--        <arguments>-->
+    <!--            <argument name="apiUrl" type="string">https://127.0.0.1:8000/api/products.json</argument>-->
+    <!--        </arguments>-->
+    <!--    </service>-->
 </services>

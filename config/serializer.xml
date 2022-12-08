@@ -5,18 +5,29 @@
         <field group="user:read">email</field>
         <field group="user:read">active</field>
         <field group="user:read">products</field>
+
+        <field group="car:read">firstName</field>
+        <field group="car:read">lastName</field>
+        <field group="car:read">email</field>
+
     </entity>
     <entity src="Application\Model\Product">
+        <field group="product:read">name</field>
+        <field group="product:read">cost</field>
+        <field group="product:read">discount</field>
+        <field group="product:read">inStock</field>
+
         <field group="user:read">name</field>
         <field group="user:read">cost</field>
-        <field group="product:read">name</field>
     </entity>
     <entity src="Application\Model\Car">
-        <field group="product:read">make</field>
+        <field group="car:read">make</field>
+        <field group="car:read">model</field>
+        <field group="car:read">generation</field>
+        <field group="car:read">users</field>
     </entity>
     <entity src="Application\Model\Post">
         <field group="post:read">title</field>
         <field group="post:read">description</field>
-        <field>cars</field>
     </entity>
 </entities>

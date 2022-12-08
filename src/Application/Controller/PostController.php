@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\Post;
+namespace Application\Controller;
 
 use Application\Model\Post;
 use Application\Repository\PostRepository;
@@ -11,7 +11,7 @@ use Framework\Http\Response\ResponseInterface;
 use Framework\Http\Response\Serializer\JsonSerializer;
 use Framework\Repository\DataResource\DataFilePHP;
 
-class AllPostController extends AbstractController
+class PostController extends AbstractController
 {
     private JsonSerializer $serializer;
 

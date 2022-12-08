@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\User;
+namespace Application\Controller;
 
 use Application\Model\User;
 use Application\Repository\UserRepository;
@@ -11,7 +11,7 @@ use Framework\Http\Response\ResponseInterface;
 use Framework\Http\Response\Serializer\JsonSerializer;
 use Framework\Repository\DataResource\DataFilePHP;
 
-class AllUserController extends AbstractController
+class UserController extends AbstractController
 {
     private JsonSerializer $serializer;
 
@@ -27,6 +27,13 @@ class AllUserController extends AbstractController
         $users = $repository->findAll();
 
         return new JsonResponse($this->serializer->serialize($users, [
+            'groups' => ['user:read']
+        ]));
+    }
+
+    public function showOne(RequestInterface $request, User $user): ResponseInterface
+    {
+        return new JsonResponse($this->serializer->serialize([$user], [
             'groups' => ['user:read']
         ]));
     }

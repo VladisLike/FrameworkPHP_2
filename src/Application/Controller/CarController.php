@@ -1,21 +1,21 @@
 <?php
 
-namespace Application\Controller\Car;
+namespace Application\Controller;
 
 use Application\Model\Car;
-use Application\Repository\CarRepository;
 use Framework\Common\AbstractController;
 use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\ResponseInterface;
 use Framework\Http\Response\Serializer\JsonSerializer;
+use Framework\Repository\RepositoryInterface;
 
-class AllCarController extends AbstractController
+class CarController extends AbstractController
 {
     private JsonSerializer $serializer;
-    private CarRepository $repository;
+    private RepositoryInterface $repository;
 
-    public function __construct(JsonSerializer $serializer, CarRepository $repository)
+    public function __construct(JsonSerializer $serializer, RepositoryInterface $repository)
     {
         $this->serializer = $serializer;
         $this->repository = $repository;
@@ -26,11 +26,15 @@ class AllCarController extends AbstractController
         /** @var Car[] $cars */
         $cars = $this->repository->findAll();
 
-        return new JsonResponse($cars);
+        return new JsonResponse($this->serializer->serialize($cars, [
+            'groups' => ['car:read']
+        ]));
     }
 
     public function showOne(RequestInterface $request, Car $car): ResponseInterface
     {
-        return new JsonResponse($car);
+        return new JsonResponse($this->serializer->serialize([$car], [
+            'groups' => ['car:read']
+        ]));
     }
 }
