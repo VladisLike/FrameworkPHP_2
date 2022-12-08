@@ -27,7 +27,14 @@ class AllPostController extends AbstractController
         $posts = $repository->findAll();
 
         return new JsonResponse($this->serializer->serialize($posts, [
-            'groups' => ['user:read']
+            'groups' => ['post:read']
+        ]));
+    }
+
+    public function showOne(RequestInterface $request, Post $post): ResponseInterface
+    {
+        return new JsonResponse($this->serializer->serialize([$post], [
+            'groups' => ['post:read']
         ]));
     }
 }

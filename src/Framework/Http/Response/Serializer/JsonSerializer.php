@@ -12,29 +12,33 @@ class JsonSerializer
     }
 
 
-    public function serialize(array $users, array $array): array
+    public function serialize(array $entity, array $array): array
     {
         $jsonResult = [];
         $data = simplexml_load_file($this->config);
-        $resultXML = $this->getXML($data, get_class($users[0]), $array['groups']);
+        $resultXML = $this->getXML($data, get_class($entity[0]), $array['groups']);
 
         $result = [];
-        foreach ($users as $user) {
+        foreach ($entity as $item) {
             $names = [];
-            $prop = [];
-            foreach ($resultXML as $method) {
-                $prop[] = $method;
-                $handleMethod = 'get' . ucfirst($method);
-                if (!in_array($handleMethod, get_class_methods($user))) {
-                    $handleMethod = 'is' . ucfirst($method);
+            $props = [];
+            foreach ($resultXML as $property) {
+                $props[] = $property;
+                $handleMethod = 'get' . ucfirst($property);
+                if (!in_array($handleMethod, get_class_methods($item))) {
+                    $handleMethod = 'is' . ucfirst($property);
                 }
-                $names[] = $user->$handleMethod();
+                $res = $item->$handleMethod();
+                if (is_array($res)) {
+                    $res = $this->serialize($res, $array);
+                }
+                $names[] = $res;
             }
 
             foreach ($names as $key => $name) {
-                $result[$prop[$key]] = $name;
+                $result[$props[$key]] = $name;
             }
-            $jsonResult[] = json_encode($result);
+            $jsonResult[] = $result;
         }
 
         return $jsonResult;

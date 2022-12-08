@@ -4,11 +4,19 @@
         <field group="user:read">lastName</field>
         <field group="user:read">email</field>
         <field group="user:read">active</field>
-        <field>products</field>
+        <field group="user:read">products</field>
+    </entity>
+    <entity src="Application\Model\Product">
+        <field group="user:read">name</field>
+        <field group="user:read">cost</field>
+        <field group="product:read">name</field>
+    </entity>
+    <entity src="Application\Model\Car">
+        <field group="product:read">make</field>
     </entity>
     <entity src="Application\Model\Post">
-        <field group="user:read">title</field>
-        <field group="user:read">description</field>
+        <field group="post:read">title</field>
+        <field group="post:read">description</field>
         <field>cars</field>
     </entity>
 </entities>

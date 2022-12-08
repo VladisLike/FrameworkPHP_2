@@ -16,17 +16,17 @@ class RouteCollection
 
     public function any(string $name, string $path, $handler, array $tokens = []): void
     {
-        $this->addRoute(new Route($name, $path, $handler, []));
+        $this->addRoute(new Route($name, $path, $handler, [], $tokens));
     }
 
     public function get(string $name, string $path, $handler, array $tokens = []): void
     {
-        $this->addRoute(new Route($name, $path, $handler, ['GET']));
+        $this->addRoute(new Route($name, $path, $handler, ['GET'], $tokens));
     }
 
     public function post(string $name, string $path, $handler, array $tokens = []): void
     {
-        $this->addRoute(new Route($name, $path, $handler, ['POST']));
+        $this->addRoute(new Route($name, $path, $handler, ['POST'], $tokens));
     }
 
     public function getRoutes(): array

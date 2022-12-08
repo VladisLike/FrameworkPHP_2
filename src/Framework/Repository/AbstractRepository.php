@@ -3,14 +3,15 @@
 namespace Framework\Repository;
 
 use Framework\Common\Model;
+use Framework\Repository\DataResource\DataApi;
+use Framework\Repository\DataResource\DataFilePHP;
 use Framework\Repository\DataResource\DataInterface;
 
 abstract class AbstractRepository implements RepositoryInterface
 {
-
     private ObjectManager $objectManager;
 
-    public function __construct(DataInterface $data)
+    public function __construct(DataFilePHP $data)
     {
         $this->objectManager = new ObjectManager($this, $data);
     }

@@ -9,6 +9,7 @@ use Framework\Http\Request\RequestInterface;
 use Framework\Http\Response\JsonResponse;
 use Framework\Http\Response\Response;
 use Framework\Http\Response\ResponseInterface;
+use Framework\Repository\DataResource\DataApi;
 use Framework\Repository\DataResource\DataMySQL;
 
 class IndexProductController extends AbstractController
@@ -16,7 +17,8 @@ class IndexProductController extends AbstractController
     public function __invoke(RequestInterface $request): ResponseInterface
     {
         $id = $request->getAttribute('id');
-        $data = new DataMySQL('localhost', 'root', 'secret', 'exampleApi_db');
+        /*new DataMySQL('localhost', 'root', 'secret', 'exampleApi_db')*/
+        $data = new DataApi('https://127.0.0.1:8000/api/products.json');
         $repository = new ProductRepository($data);
         /** @var Product $car */
         $product = $repository->find($id);
