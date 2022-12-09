@@ -10,7 +10,7 @@ abstract class AbstractRepository implements RepositoryInterface
 {
     private ObjectManager $objectManager;
 
-    public function __construct(DataFilePHP $data)
+    public function __construct(DataInterface $data)
     {
         $this->objectManager = new ObjectManager($this, $data);
     }

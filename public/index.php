@@ -57,7 +57,7 @@ $routeCollection->get('show_car', '/cars', $container->get(CarController::class)
 $routeCollection->get('car', '/cars/{id}', [$container->get(CarController::class), 'showOne'], ['id' => '\d+']);
 
 $router = new SimpleRouter($routeCollection);
-$handlerTransformer = new HandlerTransformer();
+$handlerTransformer = new HandlerTransformer($container);
 
 try {
     $result = $router->match($request);

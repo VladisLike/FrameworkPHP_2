@@ -19,9 +19,34 @@
         </arguments>
     </service>
 
-    <!--    <service class="Framework\Repository\DataResource\DataApi">-->
-    <!--        <arguments>-->
-    <!--            <argument name="apiUrl" type="string">https://127.0.0.1:8000/api/products.json</argument>-->
-    <!--        </arguments>-->
-    <!--    </service>-->
+    <service class="Application\Repository\CarRepository">
+        <arguments>
+            <argument name="data" type="class">Framework\Repository\DataResource\DataFilePHP</argument>
+        </arguments>
+    </service>
+
+    <service class="Application\Repository\PostRepository">
+        <arguments>
+            <argument name="data" type="class">Framework\Repository\DataResource\DataFilePHP</argument>
+        </arguments>
+    </service>
+
+    <service class="Application\Repository\ProductRepository">
+        <arguments>
+            <argument name="data" type="class">Framework\Repository\DataResource\DataApi</argument>
+        </arguments>
+    </service>
+
+    <service class="Application\Repository\UserRepository">
+        <arguments>
+            <argument name="data" type="class">Framework\Repository\DataResource\DataFilePHP</argument>
+        </arguments>
+    </service>
+
+
+    <service class="Framework\Repository\DataResource\DataApi">
+        <arguments>
+            <argument name="apiUrl" type="string">https://127.0.0.1:8000/api/products.json</argument>
+        </arguments>
+    </service>
 </services>

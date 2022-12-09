@@ -2,12 +2,20 @@
 
 namespace Framework\Http;
 
+use Framework\Container;
 use Framework\Http\Request\Request;
-use Framework\Repository\DataResource\DataFilePHP;
 use Framework\Repository\RepositoryInterface;
 
 class HandlerTransformer
 {
+    private Container $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
+
     public function transform(array &$handler, Request $request): array
     {
         $existId = $request->getAttributes()['id'] ?? null;
@@ -27,7 +35,7 @@ class HandlerTransformer
             }
 
             /** @var RepositoryInterface $repository */
-            $repository = new $repositoryName(new DataFilePHP());
+            $repository = $this->container->get($repositoryName);
             $handler['arguments'][] = $repository->find($existId);
         }
 
